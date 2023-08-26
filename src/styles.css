@@ -1,0 +1,107 @@
+.app {
+  background: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
+  min-height: 100vh;
+  font-size: 16px;
+  color: rgb(33, 37, 41);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  text-align: left;
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+/* SearchBox */
+.search-box {
+  width: 241px;
+  font-size: 16px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(206, 212, 218);
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
+}
+
+.search-box input {
+  font-size: 16px;
+  padding: 6px 12px;
+  border: none;
+  flex-grow: 1;
+  outline: none;
+}
+
+.shortcut {
+  border: 1px solid #999;
+  border-radius: 4px;
+  padding: 5px;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 14px;
+}
+
+.search-box.focused {
+  border-color: #7952b3;
+  box-shadow: 0 0 0 3px rgb(121 82 179 / 25%);
+}
+
+.search-box.disabled {
+  background-color: rgb(233, 236, 239);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.table tr:hover{
+  background-color: #D9AFD9;
+}
+
+.table td img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.spinner {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.no-result {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.pagination {
+  margin-top: 20px;
+}
+
+.page-item {
+  cursor: pointer;
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.page-item.active {
+  background-color: #007bff;
+  color: #fff;
+}
