@@ -58,6 +58,13 @@ h1 {
   background-color: rgb(233, 236, 239);
 }
 
+.sorting-options{
+ margin: 20px 0px
+}
+.sorting-options label{
+  margin: 0px 2px;
+}
+
 .table {
   width: 100%;
   border-collapse: collapse;

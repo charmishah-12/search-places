@@ -4,7 +4,6 @@ function SearchBox({ onSearch, onSort }) {
   const [searchText, setSearchText] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
-  const [sortingOption, setSortingOption] = useState('default');
   const inputRef = useRef(null);
   
   const handleInputChange = (e) => {
@@ -14,7 +13,6 @@ function SearchBox({ onSearch, onSort }) {
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       onSearch(searchText);
-      onSort(sortingOption)
     }
   };
 
@@ -24,10 +22,6 @@ function SearchBox({ onSearch, onSort }) {
 
   const handleBlur = () => {
     setIsFocused(false);
-  };
-
-  const handleSortingChange = (e) => {
-    setSortingOption(e.target.value);
   };
 
   useEffect(() => {
@@ -57,35 +51,6 @@ function SearchBox({ onSearch, onSort }) {
       />
       <div className="shortcut">Ctrl + /</div>
    </div> 
-    <div className="sorting-options">
-        <label>
-          <input
-            type="radio"
-            value="ascending"
-            checked={sortingOption === 'ascending'}
-            onChange={handleSortingChange}
-          />
-          Ascending
-        </label>
-        <label>
-          <input
-            type="radio"
-            value="descending"
-            checked={sortingOption === 'descending'}
-            onChange={handleSortingChange}
-          />
-          Descending
-        </label>
-        <label>
-          <input
-            type="radio"
-            value="default"
-            checked={sortingOption === 'default'}
-            onChange={handleSortingChange}
-          />
-          Default
-        </label>
-      </div>
    </div>
   );
 }

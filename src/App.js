@@ -4,6 +4,7 @@ import './styles.css';
 import SearchBox from './components/searchBox';
 import Table from './components/table';
 import Pagination from './components/pagination';
+import RadioButton from './components/radioButton';
 
 const API_KEY = '4ac5e3352fmshe6ac515ca3b8ccap1f0045jsnf0a504a87bbe';
 
@@ -21,9 +22,12 @@ function App() {
   }, [searchText])
 
   useEffect(() => {
+    setCurrentPage(1); 
+  }, [sortOption])
+
+  useEffect(() => {
     if (searchText) {
       setLoading(true);
-      console.log(sortOption)
       axios
         .get('https://wft-geo-db.p.rapidapi.com/v1/geo/cities', {
           params: {
@@ -40,7 +44,6 @@ function App() {
         })
         .then((response) => {
           const { data } = response;
-          console.log("data of API",data)
           setCities(data.data);
           setTotalPages(Math.ceil(data.metadata.totalCount / limit ));
           setLoading(false);
@@ -54,7 +57,7 @@ function App() {
       setTotalPages(0);
       setCurrentPage(1)
     }
-  }, [searchText, limit, currentPage]);
+  }, [searchText, limit, currentPage, sortOption]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -63,7 +66,8 @@ function App() {
   return (
     <div className="app">
       <h1>Search your destination to enjoy the journey!</h1>
-      <SearchBox onSearch={(text) => setSearchText(text)} onSort={(sortOption) => setSortOption(sortOption)} />
+      <SearchBox onSearch={(text) => setSearchText(text)}/>
+      <RadioButton onSort={(sort) => setSortOption(sort)}/>
       <Table data={cities} loading={loading} />
       {totalPages > 0 && (
         <Pagination
