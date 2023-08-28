@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-function SearchBox({ onSearch }) {
+function SearchBox({ onSearch, onSort }) {
   const [searchText, setSearchText] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
-  const [sortOption, setSortOption] = useState('default');
+  const [sortingOption, setSortingOption] = useState('default');
   const inputRef = useRef(null);
   
   const handleInputChange = (e) => {
@@ -14,6 +14,7 @@ function SearchBox({ onSearch }) {
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       onSearch(searchText);
+      onSort(sortingOption)
     }
   };
 
@@ -25,8 +26,8 @@ function SearchBox({ onSearch }) {
     setIsFocused(false);
   };
 
-  const handleSortChange = (e) => {
-    setSortOption(e.target.id);
+  const handleSortingChange = (e) => {
+    setSortingOption(e.target.value);
   };
 
   useEffect(() => {
@@ -56,17 +57,35 @@ function SearchBox({ onSearch }) {
       />
       <div className="shortcut">Ctrl + /</div>
    </div> 
-   <div className='sorting'>
-   <input type='radio' name='sort' id='ascending' checked={sortOption === 'ascending'}
-          onChange={handleSortChange}/>
-   <label htmlFor='ascending'>Ascending</label>
-   <input type='radio' name='sort' id='decending' checked={sortOption === 'decending'}
-          onChange={handleSortChange}/>
-   <label htmlFor='decending'>decending</label>
-   <input type='radio' name='sort' id='default' checked={sortOption === 'default'}
-          onChange={handleSortChange}/>
-   <label htmlFor='default'>default</label>
-   </div>
+    <div className="sorting-options">
+        <label>
+          <input
+            type="radio"
+            value="ascending"
+            checked={sortingOption === 'ascending'}
+            onChange={handleSortingChange}
+          />
+          Ascending
+        </label>
+        <label>
+          <input
+            type="radio"
+            value="descending"
+            checked={sortingOption === 'descending'}
+            onChange={handleSortingChange}
+          />
+          Descending
+        </label>
+        <label>
+          <input
+            type="radio"
+            value="default"
+            checked={sortingOption === 'default'}
+            onChange={handleSortingChange}
+          />
+          Default
+        </label>
+      </div>
    </div>
   );
 }

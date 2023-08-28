@@ -13,12 +13,17 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [sortOrder, setSortOrder] = useState('default');
   const [limit, setLimit] = useState(5);
+  const [sortOption, setSortOption] = useState('default');
+
+  useEffect(() => {
+    setCurrentPage(1); 
+  }, [searchText])
 
   useEffect(() => {
     if (searchText) {
       setLoading(true);
+      console.log(sortOption)
       axios
         .get('https://wft-geo-db.p.rapidapi.com/v1/geo/cities', {
           params: {
@@ -26,7 +31,7 @@ function App() {
             namePrefix: searchText,
             limit,
             offset: limit*(currentPage - 1) ,
-            sort: 'decending', 
+            sort: `${sortOption === 'descending' ? '-' : '+'}name`,
           },
           headers: {
             'x-rapidapi-host': 'wft-geo-db.p.rapidapi.com',
@@ -47,21 +52,18 @@ function App() {
     } else {
       setCities([]);
       setTotalPages(0);
+      setCurrentPage(1)
     }
-  }, [searchText, limit, currentPage, sortOrder]);
+  }, [searchText, limit, currentPage]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-
-  };
-  const handleSortChange = (sortOption) => {
-    setSortOrder(sortOption);
   };
 
   return (
     <div className="app">
       <h1>Search your destination to enjoy the journey!</h1>
-      <SearchBox onSearch={(text) => setSearchText(text)} onSort={handleSortChange}/>
+      <SearchBox onSearch={(text) => setSearchText(text)} onSort={(sortOption) => setSortOption(sortOption)} />
       <Table data={cities} loading={loading} />
       {totalPages > 0 && (
         <Pagination
